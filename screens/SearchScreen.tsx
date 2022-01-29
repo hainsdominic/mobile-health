@@ -7,6 +7,8 @@ import {
 import React, { useState, SetStateAction, useEffect } from 'react';
 import { Searchbar } from 'react-native-paper';
 
+import { format } from 'date-fns';
+
 import { Text, View } from '../components/Themed';
 
 import patients from '../Patients.json';
@@ -15,12 +17,13 @@ export default function SearchScreen({ navigation }: any) {
     const [searchQuery, setSearchQuery] = useState('');
     const [listOfProfiles, setListOfProfiles] = useState<any>();
     const [filteredList, setFilteredList] = useState<any>();
-    const onChangeSearch = (query: SetStateAction<string>) => {
+
+    const onChangeSearch = (query: string) => {
         setSearchQuery(query);
 
-        var tempList = listOfProfiles.filter((profile: any) => {
+        let tempList = listOfProfiles.filter((profile: any) => {
             let tempName = profile.Name.toLowerCase();
-            if (tempName.includes(searchQuery.toLocaleLowerCase(), 0)) {
+            if (tempName.includes(query.toLocaleLowerCase(), 0)) {
                 return profile;
             }
         });
@@ -31,22 +34,34 @@ export default function SearchScreen({ navigation }: any) {
     };
 
     useEffect(() => {
-        let listP = patients;
-        setListOfProfiles(listP);
+        setListOfProfiles(patients);
     }, []);
 
-    const renderItem = ({ item }: any) => (
-        <TouchableOpacity style={styles.patientButton}>
-            <Text>
-                {item.Name}, {item.Birth} // utiliser FNS pour formater la date
-            </Text>
-        </TouchableOpacity>
-    );
+    const renderItem = ({ item }: any) => {
+        let newDate: [] = item.Birth.split('T')[0].split('-');
+        let listDate = Object.values(newDate);
+
+        let test = format(
+            new Date(
+                Number(listDate[2]),
+                Number(listDate[1]),
+                Number(listDate[0])
+            ),
+            'MM/dd/yyyy'
+        );
+        return (
+            <TouchableOpacity style={styles.patientButton}>
+                <Text>
+                    {item.Name}, {test}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
     return (
         <View style={styles.container}>
             <Searchbar
                 placeholder="Search patient"
-                onChangeText={onChangeSearch}
+                onChangeText={(text) => onChangeSearch(text)}
                 value={searchQuery}
                 autoComplete
             />
