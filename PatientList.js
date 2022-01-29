@@ -12,11 +12,9 @@ for (let i = 0; i < 100; i++) {
     var randomGender = faker.name.gender();
     var randomAddress = faker.address.streetAddress(); 
     var randomPhoneNumber = faker.phone.phoneNumber(); 
-    var randomEmail = faker.internet.email();
     var randomCountry = faker.address.country(); 
   
 let patient = 
-
 
 {
     "Name" : randomFirstName + " " + randomLastName,
@@ -29,6 +27,17 @@ let patient =
 
 };
 
-patients.push(patient);
+var jsonString= JSON.stringify(patient);
+
+// let patient = JSONObject()
+// patient.put('Name', randomFirstName + " " + randomLastName)
+// patient.put('Birth', randombirth)
+// patient.put('Gender', randomGender)
+// patient.put('Address', randomAddress)
+// patient.put('Phone', randomPhoneNumber)
+// patient.put('Email', randomFirstName + "." + randomLastName + "@gmail.com")
+// patient.put('Country', randomCountry)
+
+patients.push(jsonString);
 }
 console.log(patients);
