@@ -17,14 +17,17 @@ export default function SearchScreen({ navigation }: any) {
     const [filteredList, setFilteredList] = useState<any>();
     const onChangeSearch = (query: SetStateAction<string>) => {
         setSearchQuery(query);
-        console.log(filteredList);
+
         var tempList = listOfProfiles.filter((profile: any) => {
             let tempName = profile.Name.toLowerCase();
-            if (tempName.includes(searchQuery.toLocaleLowerCase())) {
+            if (tempName.includes(searchQuery.toLocaleLowerCase(), 0)) {
                 return profile;
             }
         });
         setFilteredList(tempList);
+        if (query.length === 0) {
+            setFilteredList([]);
+        }
     };
 
     useEffect(() => {
