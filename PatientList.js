@@ -16,6 +16,8 @@ for (let i = 0; i < 100; i++) {
     let randomHeight = Math.floor(Math.random() * (195 - 145 + 1)) + 145; 
     let randomWeight = Math.floor(Math.random() * (100 - 50 + 1)) + 50; 
     let randomBMI = randomWeight/((randomHeight/100)**2);
+    let randomSmoker = (Math.random()>0.5)? "Yes" : "No";
+    let randomExercise = (Math.random()>0.5)? "Yes" : "No";
   
 let patient = 
 
@@ -26,6 +28,8 @@ let patient =
     "Height": randomHeight,
     "Weight": randomWeight,
     "BMI": randomBMI.toPrecision(3),
+    "Smoker": randomSmoker,
+    "Exercise": randomExercise,
     "Address": randomAddress,
     "Phone": randomPhoneNumber,
     "Email": randomFirstName + "." + randomLastName + "@gmail.com",
