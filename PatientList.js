@@ -18,7 +18,19 @@ for (let i = 0; i < 100; i++) {
     let randomBMI = randomWeight/((randomHeight/100)**2);
     let randomSmoker = (Math.random()>0.5)? "Yes" : "No";
     let randomExercise = (Math.random()>0.5)? "Yes" : "No";
-  
+    let BMiStatus;
+    if (randomBMI < 18.5) {
+        BMiStatus = "Underweight";
+    }
+    else if (18.5 <= randomBMI <= 24.9) {
+        BMiStatus = "Normal weight";
+    }
+    else if (25 <= randomBMI <= 29.9) {
+        BMiStatus = "Overweight";
+    }
+    else {
+        BMiStatus = "Obesity";
+    }
 let patient = 
 
 {
@@ -27,7 +39,7 @@ let patient =
     "Sex": randomSex,
     "Height": randomHeight,
     "Weight": randomWeight,
-    "BMI": randomBMI.toPrecision(3),
+    "BMI": randomBMI.toPrecision(3) + " (" + BMiStatus + ")",
     "Smoker": randomSmoker,
     "Exercise": randomExercise,
     "Address": randomAddress,
