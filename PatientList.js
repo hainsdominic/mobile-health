@@ -18,7 +18,7 @@ for (let i = 0; i < 100; i++) {
     let randomHeight = Math.floor(Math.random() * (195 - 145 + 1)) + 145; 
     let randomWeight = Math.floor(Math.random() * (100 - 50 + 1)) + 50; 
     let randomBMI = randomWeight/((randomHeight/100)**2);
-    let randomSmoker = (Math.random()>0.5)? "Yes" : "No";
+    let randomSmoker = (Math.random()>0.3)? "Yes" : "No";
     let randomExercise = (Math.random()>0.5)? "Yes" : "No";
     let BMiStatus;
     if (randomBMI < 18.5) {
