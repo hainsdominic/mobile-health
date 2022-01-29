@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, Subheading, TextInput } from 'react-native-paper';
+import { RadioButton, Subheading, Text, TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { View } from '../components/Themed';
-import { RadioButton } from 'react-native-paper/lib/typescript/components/RadioButton/RadioButton';
 
 export default function NewPatient({ navigation }: any) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthdate, setBirthdate] = useState(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
     const [sexAtBirth, setSexAtBirth] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
@@ -45,13 +43,17 @@ export default function NewPatient({ navigation }: any) {
                 display="default"
                 style={styles.formElement}
             />
-            <TextInput
-                autoComplete={false}
-                placeholder="Sex"
-                value={firstName}
-                onChangeText={(firstName) => setFirstName(firstName)}
-                style={styles.formElement}
-            />
+            <RadioButton.Group
+                onValueChange={(sexAtBirth: string) => setSexAtBirth(sexAtBirth)}
+                value={sexAtBirth}
+            >
+                <View style={styles.formElement}>
+                    <Text>Male</Text>
+                    <RadioButton value="Male" />
+                    <Text>Female</Text>
+                    <RadioButton value="Female" />
+                </View>
+            </RadioButton.Group>
             <TextInput
                 autoComplete={false}
                 placeholder="Street Address"
