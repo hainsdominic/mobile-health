@@ -23,7 +23,7 @@ let patient =
     "Birth": randombirth,
     "Gender": randomGender,
     "Address": randomAddress,
-    "Phone Number": randomPhoneNumber,
+    "Phone": randomPhoneNumber,
     "Email": randomFirstName + "." + randomLastName + "@gmail.com",
     "Country": randomCountry,
 
