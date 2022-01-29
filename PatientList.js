@@ -4,22 +4,28 @@ const patients = []
 
 for (let i = 0; i < 100; i++) { 
 
-    var faker = require('faker');
+    let faker = require('faker');
 
-    var randomFirstName = faker.name.firstName();
-    var randomLastName = faker.name.lastName();
-    var randombirth = faker.date.past();
-    var randomGender = faker.name.gender();
-    var randomAddress = faker.address.streetAddress(); 
-    var randomPhoneNumber = faker.phone.phoneNumber(); 
-    var randomCountry = faker.address.country(); 
+    let randomFirstName = faker.name.firstName();
+    let randomLastName = faker.name.lastName();
+    let randombirth = faker.date.past();
+    let randomSex = (Math.random()>0.5)? "Male" : "Female";
+    let randomAddress = faker.address.streetAddress(); 
+    let randomPhoneNumber = faker.phone.phoneNumber(); 
+    let randomCountry = faker.address.country(); 
+    let randomHeight = Math.floor(Math.random() * (195 - 145 + 1)) + 145; 
+    let randomWeight = Math.floor(Math.random() * (100 - 50 + 1)) + 50; 
+    let randomBMI = randomWeight/((randomHeight/100)**2);
   
 let patient = 
 
 {
     "Name" : randomFirstName + " " + randomLastName,
     "Birth": randombirth,
-    "Gender": randomGender,
+    "Sex": randomSex,
+    "Height": randomHeight,
+    "Weight": randomWeight,
+    "BMI": randomBMI.toPrecision(3),
     "Address": randomAddress,
     "Phone": randomPhoneNumber,
     "Email": randomFirstName + "." + randomLastName + "@gmail.com",
