@@ -81,7 +81,7 @@ export default function NewPatient({ navigation }: any) {
             />
             {country !== null && (
                 <Text>
-                    {country.name}
+                    {country?.name}
                 </Text>
             )}
         </View>
