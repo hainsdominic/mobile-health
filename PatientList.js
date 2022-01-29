@@ -4,10 +4,12 @@ const patients = []
 
 for (let i = 0; i < 100; i++) { 
 
+    const { v4: uuidv4 } = require('uuid')
     let faker = require('faker');
 
     let randomFirstName = faker.name.firstName();
     let randomLastName = faker.name.lastName();
+    let randomPatientID = uuidv4();
     let randombirth = faker.date.past();
     let randomSex = (Math.random()>0.5)? "Male" : "Female";
     let randomAddress = faker.address.streetAddress(); 
@@ -36,6 +38,7 @@ let patient =
 {
     "First Name" : randomFirstName,
     "Last Name": randomLastName,
+    "Patient ID": randomPatientID,
     "Birth": randombirth,
     "Sex": randomSex,
     "Height": randomHeight,
@@ -48,7 +51,7 @@ let patient =
     "Email": randomFirstName + "." + randomLastName + "@gmail.com",
     "Country": randomCountry,
 
-};
+}
 
 var jsonString= JSON.stringify(patient);
 
