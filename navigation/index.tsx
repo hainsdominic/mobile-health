@@ -16,15 +16,13 @@ import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
+import NewPatientScreen from '../screens/NewPatientScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import SearchScreen from '../screens/SearchScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import {
-    RootStackParamList,
-    RootTabParamList,
-    RootTabScreenProps,
-} from '../types';
+import { RootStackParamList, RootTabParamList } from '../types';
 
 export default function Navigation({
     colorScheme,
@@ -79,21 +77,34 @@ function BottomTabNavigator() {
                 tabBarActiveTintColor: Colors[colorScheme].tint,
             }}
         >
+            {/* Add */}
             <BottomTab.Screen
-                name="TabOne"
-                component={TabOneScreen}
+                name="New"
+                component={NewPatientScreen}
                 options={{
-                    title: 'Tab One',
+                    title: 'New Patient',
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="code" color={color} />
                     ),
                 }}
             />
+            {/* Search */}
             <BottomTab.Screen
-                name="TabTwo"
-                component={TabTwoScreen}
+                name="Search"
+                component={SearchScreen}
                 options={{
-                    title: 'Tab Two',
+                    title: 'Search',
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="code" color={color} />
+                    ),
+                }}
+            />
+            {/* Profile */}
+            <BottomTab.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                    title: 'Profile',
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="code" color={color} />
                     ),
