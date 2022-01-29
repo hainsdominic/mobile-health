@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 
 import { Text, View } from '../components/Themed';
 
-import patients from '../Patients.json';
+import patients from '../patients.json';
 
 export default function SearchScreen({ navigation }: any) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -22,8 +22,9 @@ export default function SearchScreen({ navigation }: any) {
         setSearchQuery(query);
 
         let tempList = listOfProfiles.filter((profile: any) => {
-            let tempName = profile.Name.toLowerCase();
-            if (tempName.includes(query.toLocaleLowerCase(), 0)) {
+            let fullName = profile.firstName + ' ' + profile.lastName;
+            fullName = fullName.toLowerCase();
+            if (fullName.includes(query.toLocaleLowerCase(), 0)) {
                 return profile;
             }
         });
@@ -38,7 +39,7 @@ export default function SearchScreen({ navigation }: any) {
     }, []);
 
     const renderItem = ({ item }: any) => {
-        let newDate: [] = item.Birth.split('T')[0].split('-');
+        let newDate: [] = item.birth.split('T')[0].split('-');
         let listDate = Object.values(newDate);
 
         let test = format(
@@ -50,9 +51,12 @@ export default function SearchScreen({ navigation }: any) {
             'MM/dd/yyyy'
         );
         return (
-            <TouchableOpacity style={styles.patientButton}>
+            <TouchableOpacity
+                style={styles.patientButton}
+                onPress={() => console.log(item.id)}
+            >
                 <Text>
-                    {item.Name}, {test}
+                    {item.firstName} {item.lastName}, {test}
                 </Text>
             </TouchableOpacity>
         );
@@ -71,11 +75,11 @@ export default function SearchScreen({ navigation }: any) {
                     style={styles.listOfProfiles}
                     data={filteredList}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.Birth}
+                    keyExtractor={(item) => item.id}
                 />
             ) : (
                 <View style={styles.textBox}>
-                    <Text> No accounts found</Text>
+                    <Text style={styles.textBoxText}> No accounts found</Text>
                 </View>
             )}
         </View>
@@ -102,7 +106,11 @@ const styles = StyleSheet.create({
     textBox: {
         // flex: 1,
         alignItems: 'center',
-        margin: 10,
+        marginTop: 30,
+    },
+    textBoxText: {
+        fontSize: 15,
+        fontWeight: 'bold',
     },
     listOfProfiles: {
         width: '100%',

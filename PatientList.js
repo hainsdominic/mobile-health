@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 const patients = [];
 
 for (let i = 0; i < 100; i++) {
@@ -29,21 +31,21 @@ for (let i = 0; i < 100; i++) {
         BMiStatus = 'Obesity';
     }
     let patient = {
-        'First Name': randomFirstName,
-        'Last Name': randomLastName,
-        'Patient ID': randomPatientID,
-        'Job Title': randomProfession,
-        Birth: randombirth,
-        Sex: randomSex,
-        Height: randomHeight,
-        Weight: randomWeight,
-        BMI: randomBMI.toPrecision(3) + ' (' + BMiStatus + ')',
-        Smoker: randomSmoker,
-        Exercise: randomExercise,
-        Address: randomAddress,
-        Phone: randomPhoneNumber,
-        Email: randomFirstName + '.' + randomLastName + '@gmail.com',
-        Country: randomCountry,
+        firstName: randomFirstName,
+        lastName: randomLastName,
+        id: randomPatientID,
+        jobTitle: randomProfession,
+        birth: randombirth,
+        sex: randomSex,
+        height: randomHeight,
+        weight: randomWeight,
+        bmi: randomBMI.toPrecision(3),
+        smoker: randomSmoker,
+        exercise: randomExercise,
+        address: randomAddress,
+        phone: randomPhoneNumber,
+        email: randomFirstName + '.' + randomLastName + '@gmail.com',
+        country: randomCountry,
     };
 
     var jsonString = JSON.stringify(patient);
@@ -57,6 +59,10 @@ for (let i = 0; i < 100; i++) {
     // patient.put('Email', randomFirstName + "." + randomLastName + "@gmail.com")
     // patient.put('Country', randomCountry)
 
-    patients.push(jsonString);
+    patients.push(patient);
 }
-console.log(patients);
+
+fs.writeFile('patients.json', JSON.stringify(patients), function (err) {
+    if (err) throw err;
+    console.log('complete');
+});
