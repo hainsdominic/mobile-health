@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { RadioButton, Text, TextInput } from 'react-native-paper';
+import { Button, RadioButton, Text, TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { View } from '../components/Themed';
 
@@ -18,6 +19,45 @@ export default function NewPatient({ navigation }: any) {
     const onDateChange = (event: Event, date: Date) => {
         const currentDate = date || birthdate;
         setBirthdate(currentDate);
+    };
+
+    useEffect(() => {
+        (async () => {
+            await retrieveData();
+        })();
+    }, []);
+
+    const retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('patients');
+            if (value !== null) {
+                const data = JSON.parse(value);
+                console.log(data);
+            }
+        } catch (error) {
+            // Error retrieving data
+        }
+    };
+
+    const storeData = async () => {
+        try {
+            await AsyncStorage.mergeItem(
+                'patients',
+                JSON.stringify([
+                    {
+                        firstName,
+                        lastName,
+                        birthdate,
+                        sexAtBirth,
+                        streetAddress,
+                        city,
+                        country,
+                    },
+                ])
+            );
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -79,11 +119,10 @@ export default function NewPatient({ navigation }: any) {
                 withFlag={true}
                 onSelect={(country: Country) => setCountry(country)}
             />
-            {country !== null && (
-                <Text>
-                    {country?.name}
-                </Text>
-            )}
+            {country !== null && <Text>{country?.name}</Text>}
+            <Button mode="contained" onPress={async () => await storeData()}>
+                Register New Patient
+            </Button>
         </View>
     );
 }
