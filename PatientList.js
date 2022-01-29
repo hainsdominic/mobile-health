@@ -34,7 +34,8 @@ for (let i = 0; i < 100; i++) {
 let patient = 
 
 {
-    "Name" : randomFirstName + " " + randomLastName,
+    "First Name" : randomFirstName,
+    "Last Name": randomLastName,
     "Birth": randombirth,
     "Sex": randomSex,
     "Height": randomHeight,
