@@ -1,3 +1,10 @@
 {
-    "name": "Joe Blow"
+    "firstName": "Joe",
+    "lastName": "Blow",
+    "birth": "1987-09-11",
+    "Sex": "Male",
+    "streetAddress": "123",
+    "city": "Longueuil",
+    "state": "Québec",
+    "country": "Canada"
 }
