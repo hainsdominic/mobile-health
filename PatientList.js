@@ -10,6 +10,7 @@ for (let i = 0; i < 100; i++) {
     let randomFirstName = faker.name.firstName();
     let randomLastName = faker.name.lastName();
     let randomPatientID = uuidv4();
+    let randomProfession = faker.name.jobType();
     let randombirth = faker.date.past();
     let randomSex = (Math.random()>0.5)? "Male" : "Female";
     let randomAddress = faker.address.streetAddress(); 
@@ -39,6 +40,7 @@ let patient =
     "First Name" : randomFirstName,
     "Last Name": randomLastName,
     "Patient ID": randomPatientID,
+    "Job Title": randomProfession,
     "Birth": randombirth,
     "Sex": randomSex,
     "Height": randomHeight,
