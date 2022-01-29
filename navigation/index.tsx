@@ -84,7 +84,7 @@ function BottomTabNavigator() {
                 options={{
                     title: 'New Patient',
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="plus-circle" color={color} />
                     ),
                 }}
             />
@@ -95,7 +95,7 @@ function BottomTabNavigator() {
                 options={{
                     title: 'Search',
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="search" color={color} />
                     ),
                 }}
             />
@@ -106,7 +106,7 @@ function BottomTabNavigator() {
                 options={{
                     title: 'Profile',
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="user-md" color={color} />
                     ),
                 }}
             />
