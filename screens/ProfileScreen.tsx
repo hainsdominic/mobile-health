@@ -11,7 +11,6 @@ export default function ProfileScreen({ navigation }: any) {
     const [profession, setProfession] = useState('');
 
     useFocusEffect(() => {
-        console.log('alloh');
         (async () => {
             await retrieveData();
         })();
@@ -40,7 +39,7 @@ export default function ProfileScreen({ navigation }: any) {
                 compact
                 onPress={() => navigation.navigate('EditProfessionalModal')}
             >
-                edit
+                {name == '' ? 'Fill in your data' : 'edit'}
             </Button>
             <View
                 style={styles.separator}
@@ -49,7 +48,7 @@ export default function ProfileScreen({ navigation }: any) {
             />
             <View style={styles.statsContainer}>
                 <Subheading style={styles.stats}>Patients: 69</Subheading>
-                <Subheading style={styles.stats}>Forms filled: 234</Subheading>
+                <Subheading style={styles.stats}>Forms filled: 420</Subheading>
             </View>
             <View
                 style={styles.separator}
