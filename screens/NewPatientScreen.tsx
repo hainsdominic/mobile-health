@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { RadioButton, Text, TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import CountryPicker, { Country } from 'react-native-country-picker-modal';
 
 import { View } from '../components/Themed';
 
@@ -12,7 +13,7 @@ export default function NewPatient({ navigation }: any) {
     const [sexAtBirth, setSexAtBirth] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
+    const [country, setCountry] = useState<Country>();
 
     const onDateChange = (event: Event, date: Date) => {
         const currentDate = date || birthdate;
@@ -72,13 +73,17 @@ export default function NewPatient({ navigation }: any) {
                 onChangeText={(city) => setCity(city)}
                 style={styles.formElement}
             />
-            <TextInput
-                autoComplete={false}
-                placeholder="Country"
-                value={country}
-                onChangeText={(country) => setCountry(country)}
-                style={styles.formElement}
+            <Text>Country</Text>
+            <CountryPicker
+                withFlagButton={true}
+                withFlag={true}
+                onSelect={(country: Country) => setCountry(country)}
             />
+            {country !== null && (
+                <Text>
+                    {country.name}
+                </Text>
+            )}
         </View>
     );
 }
