@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { RadioButton, Subheading, Text, TextInput } from 'react-native-paper';
+import { RadioButton, Text, TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { View } from '../components/Themed';
@@ -35,7 +35,7 @@ export default function NewPatient({ navigation }: any) {
                 onChangeText={(lastName) => setLastName(lastName)}
                 style={styles.formElement}
             />
-            <Subheading>Birthdate</Subheading>
+            <Text>Birthdate</Text>
             <DateTimePicker
                 value={birthdate}
                 mode="date"
@@ -44,7 +44,9 @@ export default function NewPatient({ navigation }: any) {
                 style={styles.formElement}
             />
             <RadioButton.Group
-                onValueChange={(sexAtBirth: string) => setSexAtBirth(sexAtBirth)}
+                onValueChange={(sexAtBirth: string) =>
+                    setSexAtBirth(sexAtBirth)
+                }
                 value={sexAtBirth}
             >
                 <View style={styles.formElement}>
@@ -57,22 +59,24 @@ export default function NewPatient({ navigation }: any) {
             <TextInput
                 autoComplete={false}
                 placeholder="Street Address"
-                value={firstName}
-                onChangeText={(firstName) => setFirstName(firstName)}
+                value={streetAddress}
+                onChangeText={(streetAddress) =>
+                    setStreetAddress(streetAddress)
+                }
                 style={styles.formElement}
             />
             <TextInput
                 autoComplete={false}
                 placeholder="City"
-                value={firstName}
-                onChangeText={(firstName) => setFirstName(firstName)}
+                value={city}
+                onChangeText={(city) => setCity(city)}
                 style={styles.formElement}
             />
             <TextInput
                 autoComplete={false}
                 placeholder="Country"
-                value={firstName}
-                onChangeText={(firstName) => setFirstName(firstName)}
+                value={country}
+                onChangeText={(country) => setCountry(country)}
                 style={styles.formElement}
             />
         </View>
