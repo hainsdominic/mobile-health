@@ -1,5 +1,5 @@
 {
-    "firstName": "Joe",
+    firstName: "Joe",
     "lastName": "Blow",
     "birth": "1987-09-11",
     "Sex": "Male",
