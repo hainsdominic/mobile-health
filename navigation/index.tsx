@@ -16,6 +16,7 @@ import { ColorSchemeName } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import EditProfessionalModal from '../screens/EditProfessionalModal';
 import NewPatientScreen from '../screens/NewPatientScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -55,6 +56,13 @@ function RootNavigator() {
                 component={NotFoundScreen}
                 options={{ title: 'Oops!' }}
             />
+            <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                <Stack.Screen
+                    name="EditProfessionalModal"
+                    component={EditProfessionalModal}
+                    options={{ title: 'Edit' }}
+                />
+            </Stack.Group>
         </Stack.Navigator>
     );
 }
@@ -106,6 +114,7 @@ function BottomTabNavigator() {
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="user-md" color={color} />
                     ),
+                    headerShown: false,
                 }}
             />
         </BottomTab.Navigator>
