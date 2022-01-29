@@ -21,7 +21,7 @@ for (let i = 0; i < 100; i++) {
     };
 
     var jsonString = JSON.stringify(patient);
-
+    patients.push(jsonString);
     // let patient = JSONObject()
     // patient.put('Name', randomFirstName + " " + randomLastName)
     // patient.put('Birth', randombirth)
@@ -30,7 +30,5 @@ for (let i = 0; i < 100; i++) {
     // patient.put('Phone', randomPhoneNumber)
     // patient.put('Email', randomFirstName + "." + randomLastName + "@gmail.com")
     // patient.put('Country', randomCountry)
-
-    patients.push(jsonString);
 }
-export { patients };
+console.log(patients);
