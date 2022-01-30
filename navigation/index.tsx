@@ -80,7 +80,7 @@ function BottomTabNavigator() {
 
     return (
         <BottomTab.Navigator
-            initialRouteName="TabOne"
+            initialRouteName="Search"
             screenOptions={{
                 tabBarActiveTintColor: Colors[colorScheme].tint,
             }}
