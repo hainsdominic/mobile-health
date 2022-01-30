@@ -5,7 +5,6 @@ const patients = [];
 for (let i = 0; i < 100; i++) {
     const { v4: uuidv4 } = require('uuid');
     let faker = require('faker');
-
     let randomFirstName = faker.name.firstName();
     let randomLastName = faker.name.lastName();
     let randomPatientID = uuidv4();

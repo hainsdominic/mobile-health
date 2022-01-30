@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Alert } from 'react-native';
 import { Button, RadioButton, TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 import { View } from '../components/Themed';
 
@@ -32,7 +34,6 @@ export default function NewPatient({ navigation }: any) {
             const value = await AsyncStorage.getItem('patients');
             if (value) {
                 const data = JSON.parse(value);
-                console.log(data);
             } else {
                 await AsyncStorage.setItem('patients', JSON.stringify([]));
             }
@@ -42,37 +43,63 @@ export default function NewPatient({ navigation }: any) {
     };
 
     const storeData = async () => {
-        try {
-            let res = await AsyncStorage.getItem('patients');
-            // console.log(res);
+        if (
+            firstName === '' ||
+            lastName === '' ||
+            sexAtBirth === '' ||
+            streetAddress === '' ||
+            city === '' ||
+            country === undefined
+        ) {
+            Alert.alert(
+                'Error',
+                'You need the fill all the required fields',
+                [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                {
+                    cancelable: true,
+                    onDismiss: () =>
+                        Alert.alert(
+                            'This alert was dismissed by tapping outside of the alert dialog.'
+                        ),
+                }
+            );
+        } else {
+            try {
+                resetField();
+                let res = await AsyncStorage.getItem('patients');
 
-            console.log(
-                '------------------------------------------------------------------------------------------------'
-            );
-            if (res) {
-                let listProfile = JSON.parse(res);
-                console.log(listProfile);
-                listProfile.push({
-                    firstName: firstName,
-                    lastName: lastName,
-                    birthdate: birthdate,
-                    sexAtBirth: sexAtBirth,
-                    streetAddress: streetAddress,
-                    city: city,
-                    country: country,
-                });
-                // listProfile.push(['hekho------------------------------']);
-                await AsyncStorage.setItem(
-                    'patients',
-                    JSON.stringify(listProfile)
-                );
+                if (res) {
+                    let listProfile = JSON.parse(res);
+                    console.log(listProfile);
+                    listProfile.push({
+                        id: uuidv4(),
+                        firstName: firstName,
+                        lastName: lastName,
+                        birthdate: birthdate,
+                        sexAtBirth: sexAtBirth,
+                        streetAddress: streetAddress,
+                        city: city,
+                        country: country?.name,
+                    });
+
+                    await AsyncStorage.setItem(
+                        'patients',
+                        JSON.stringify(listProfile)
+                    );
+                }
+            } catch (error) {
+                console.error(error);
             }
-            console.log(
-                '---------------------------------------------------------------------------------------------------'
-            );
-        } catch (error) {
-            console.error(error);
         }
+    };
+
+    const resetField = () => {
+        setFirstName('');
+        setLastName('');
+        setSexAtBirth('');
+        setStreetAddress('');
+        setCity('');
+        setCountry(undefined);
     };
 
     return (
