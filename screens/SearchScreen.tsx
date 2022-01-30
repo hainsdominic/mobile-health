@@ -4,14 +4,14 @@ import {
     FlatList,
     TouchableOpacity,
 } from 'react-native';
+
 import React, { useState, SetStateAction, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Searchbar } from 'react-native-paper';
 
 import { format } from 'date-fns';
 
 import { Text, View } from '../components/Themed';
-
-import patients from '../patients.json';
 
 export default function SearchScreen({ navigation }: any) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -34,12 +34,27 @@ export default function SearchScreen({ navigation }: any) {
         }
     };
 
+    // FIXME: Code repetition, move this function into a file
+    const retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('patients');
+            if (value) {
+                const data = JSON.parse(value);
+                setListOfProfiles(data);
+            } else {
+                await AsyncStorage.setItem('patients', JSON.stringify([]));
+            }
+        } catch (error) {
+            // Error retrieving data
+        }
+    };
+
     useEffect(() => {
-        setListOfProfiles(patients);
+        retrieveData();
     }, []);
 
     const renderItem = ({ item }: any) => {
-        let newDate: [] = item.birth.split('T')[0].split('-');
+        let newDate: [] = item.birthdate.split('T')[0].split('-');
         let listDate = Object.values(newDate);
 
         let test = format(
