@@ -31,4 +31,4 @@ We are very proud to have built an application that works and that could be used
 We learned a lot about building a multi-screen and well-routed React-Native application. We learned a UI library named React-Native-Paper that was new to everyone.
 
 ## What's next for ReemowteDok
-We want to port this application to production and test it against the real world! we really see a potential to accelerate and diversify medical research.
+We want to port this application to production and test it against the real world! We really see a potential to accelerate and diversify medical research.
