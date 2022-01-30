@@ -54,7 +54,7 @@ export default function NewPatient({ navigation }: any) {
             Alert.alert(
                 'Error',
                 'You need the fill all the required fields',
-                [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                [{ text: 'OK' }],
                 {
                     cancelable: true,
                     onDismiss: () =>
@@ -70,7 +70,6 @@ export default function NewPatient({ navigation }: any) {
 
                 if (res) {
                     let listProfile = JSON.parse(res);
-                    console.log(listProfile);
                     listProfile.push({
                         id: uuidv4(),
                         firstName: firstName,

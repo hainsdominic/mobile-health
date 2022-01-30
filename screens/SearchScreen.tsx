@@ -12,6 +12,7 @@ import { Searchbar } from 'react-native-paper';
 import { format } from 'date-fns';
 
 import { Text, View } from '../components/Themed';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function SearchScreen({ navigation }: any) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -49,29 +50,19 @@ export default function SearchScreen({ navigation }: any) {
         }
     };
 
-    useEffect(() => {
+    useFocusEffect(() => {
         retrieveData();
-    }, []);
+    });
 
     const renderItem = ({ item }: any) => {
-        let newDate: [] = item.birthdate.split('T')[0].split('-');
-        let listDate = Object.values(newDate);
-
-        let test = format(
-            new Date(
-                Number(listDate[2]),
-                Number(listDate[1]),
-                Number(listDate[0])
-            ),
-            'MM/dd/yyyy'
-        );
+        let date = format(new Date(item.birthdate), 'MM/dd/yyyy');
         return (
             <TouchableOpacity
                 style={styles.patientButton}
                 onPress={() => console.log(item.id)}
             >
                 <Text>
-                    {item.firstName} {item.lastName}, {test}
+                    {item.firstName} {item.lastName}, {date}
                 </Text>
             </TouchableOpacity>
         );
