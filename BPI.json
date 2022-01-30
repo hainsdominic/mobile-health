@@ -1,0 +1,142 @@
+{
+    "_id": {
+        "$oid": "609da83d6c1c1266606a69e7"
+    },
+    "schema": {
+        "type": "object",
+        "title": "Brief Pain Inventory",
+        "description": "Rapidly assesses the severity of pain and its impact on functioning",
+        "properties": {
+            "BPIPainWorst": {
+                "title": "Select the one number that best describes your pain at its WORST in the last 7 days, from no pain (0) to the worst possible pain (10)",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPIPainLeast": {
+                "title": "Select the one number that best describes your pain at its LEAST in the last 7 days",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPIPainAverage": {
+                "title": "Select the one number that best describes your pain on AVERAGE in the last 7 days",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPIPainNow": {
+                "title": "Select the one number that best describes your pain RIGHT NOW",
+                "type": "integer",
+                "maximum": 10,
+                "default": 0
+            },
+            "BPIGeneralActivity": {
+                "title": "Select the one number that describes how, during the past 7 days, pain has interfered with your general activity",
+                "type": "integer",
+                "maximum": 10,
+                "default": 0
+            },
+            "BPIMood": {
+                "title": "Select the one number that describes how, during the past 7 days, pain has interfered with your mood",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPIWalking": {
+                "title": "Select the one number that describes how, during the past 7 days, pain has interfered with your walking ability",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPIWork": {
+                "title": "Select the one number that describes how, during the past 7 days, pain has interfered with your normal work (includes both work outside the home and housework)",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPIRelations": {
+                "title": "Select the number that describes how, during the past 7 days, pain has interfered with your relations with other people",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPISleep": {
+                "title": "Select the number that describes how, during the past 7 days, pain has interfered with your sleep",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            },
+            "BPIEnjoyment": {
+                "title": "Select the number that describes how, during the past 7 days, pain has interfered with your enjoyment of life",
+                "type": "integer",
+                "default": 0,
+                "maximum": 10
+            }
+        },
+        "required": [
+            "BPIPainWorst",
+            "BPIPainLeast",
+            "BPIPainAverage",
+            "BPIPainNow",
+            "BPIGeneralActivity",
+            "BPIMood",
+            "BPIWalking",
+            "BPIWork",
+            "BPIRelations",
+            "BPISleep",
+            "BPIEnjoyment"
+        ]
+    },
+    "uischema": {
+        "ui:order": [
+            "BPIPainWorst",
+            "BPIPainLeast",
+            "BPIPainAverage",
+            "BPIPainNow",
+            "BPIGeneralActivity",
+            "BPIMood",
+            "BPIWalking",
+            "BPIWork",
+            "BPIRelations",
+            "BPISleep",
+            "BPIEnjoyment"
+        ],
+        "BPIPainWorst": {
+            "ui:widget": "range"
+        },
+        "BPIPainLeast": {
+            "ui:widget": "range"
+        },
+        "BPIPainAverage": {
+            "ui:widget": "range"
+        },
+        "BPIPainNow": {
+            "ui:widget": "range"
+        },
+        "BPIGeneralActivity": {
+            "ui:widget": "range"
+        },
+        "BPIMood": {
+            "ui:widget": "range"
+        },
+        "BPIWalking": {
+            "ui:widget": "range"
+        },
+        "BPIWork": {
+            "ui:widget": "range"
+        },
+        "BPIRelations": {
+            "ui:widget": "range"
+        },
+        "BPISleep": {
+            "ui:widget": "range"
+        },
+        "BPIEnjoyment": {
+            "ui:widget": "range"
+        }
+    },
+    "title": "Brief Pain Inventory",
+    "language": "en",
+    "__v": 0
+}

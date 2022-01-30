@@ -21,6 +21,7 @@ import NewPatientScreen from '../screens/NewPatientScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import PatientScreen from '../screens/PatientScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import QuestionnaireScreen from '../screens/QuestionnaireScreen';
 import SearchScreen from '../screens/SearchScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
 
@@ -58,6 +59,10 @@ function RootNavigator() {
                 options={{ title: 'Oops!' }}
             />
             <Stack.Screen name="Patient" component={PatientScreen} />
+            <Stack.Screen
+                name="Questionnaire"
+                component={QuestionnaireScreen}
+            />
             <Stack.Group screenOptions={{ presentation: 'modal' }}>
                 <Stack.Screen
                     name="EditProfessionalModal"

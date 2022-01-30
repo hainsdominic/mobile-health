@@ -22,6 +22,7 @@ export type RootStackParamList = {
     NotFound: undefined;
     EditProfessionalModal: undefined;
     Patient: undefined;
+    Questionnaire: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

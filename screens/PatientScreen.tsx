@@ -1,13 +1,39 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
-import React from 'react';
-import { Button, Card, Paragraph, Title } from 'react-native-paper';
-import { format } from 'date-fns';
+import { StyleSheet, View, Image } from 'react-native';
+import React, { useState } from 'react';
+import { Button, Card, Paragraph } from 'react-native-paper';
+import { format, lastDayOfMonth } from 'date-fns';
+import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PatientScreen = ({ route, navigation }: any) => {
+    const [nbQuestionnaires, setNbQuesionnaires] = useState(0);
     const { item } = route.params;
     const randomHeight = Math.floor(Math.random() * (195 - 145 + 1)) + 145;
     const randomWeight = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
     const randomBMI = randomWeight / (randomHeight / 100) ** 2;
+
+    useFocusEffect(() => {
+        (async () => {
+            // Get patients
+            // Get the array of patients
+            const value = await AsyncStorage.getItem('patients');
+
+            // Update the patient
+            if (value) {
+                const data = JSON.parse(value);
+                const index = data.findIndex(
+                    (patient: any) => patient.id === item.id
+                );
+
+                // Set questionnaire count
+                if (data[index].questionnaires) {
+                    setNbQuesionnaires(data[index].questionnaires.length);
+                }
+            }
+            // Set questionnaire count
+        })();
+    });
+
     return (
         <View style={styles.container}>
             <Image
@@ -38,7 +64,9 @@ const PatientScreen = ({ route, navigation }: any) => {
             </Card>
             <Card style={styles.card}>
                 <Card.Content>
-                    <Paragraph>23 questionnaires filled</Paragraph>
+                    <Paragraph>
+                        {nbQuestionnaires} questionnaires filled
+                    </Paragraph>
                 </Card.Content>
             </Card>
             <Button
@@ -46,7 +74,7 @@ const PatientScreen = ({ route, navigation }: any) => {
                 icon="pencil"
                 mode="outlined"
                 compact
-                onPress={() => navigation.navigate('Questionnaire')}
+                onPress={() => navigation.navigate('Questionnaire', { item })}
             >
                 New questionnaire
             </Button>
