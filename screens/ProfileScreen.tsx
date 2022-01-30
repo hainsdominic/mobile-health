@@ -59,7 +59,7 @@ export default function ProfileScreen({ navigation }: any) {
                 style={styles.edit}
                 icon="upload"
                 mode="contained"
-                onPress={() => console.log('Pressed')}
+                onPress={() => navigation.navigate('Patient')}
             >
                 upload data
             </Button>
