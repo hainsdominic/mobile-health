@@ -21,18 +21,20 @@ export default function NewPatient({ navigation }: any) {
         setBirthdate(currentDate);
     };
 
-    // useEffect(() => {
-    //     (async () => {
-    //         await retrieveData();
-    //     })();
-    // }, []);
+    useEffect(() => {
+        (async () => {
+            await retrieveData();
+        })();
+    }, []);
 
     const retrieveData = async () => {
         try {
             const value = await AsyncStorage.getItem('patients');
-            if (value !== null) {
+            if (value) {
                 const data = JSON.parse(value);
                 console.log(data);
+            } else {
+                await AsyncStorage.setItem('patients', JSON.stringify([]));
             }
         } catch (error) {
             // Error retrieving data
@@ -40,34 +42,37 @@ export default function NewPatient({ navigation }: any) {
     };
 
     const storeData = async () => {
-        // try {
-        //     await AsyncStorage.mergeItem(
-        //         'patients',
-        //         JSON.stringify([
-        //             {
-        //                 firstName,
-        //                 lastName,
-        //                 birthdate,
-        //                 sexAtBirth,
-        //                 streetAddress,
-        //                 city,
-        //                 country,
-        //             },
-        //         ])
-        //     );
-        // } catch (error) {
-        //     console.error(error);
-        // }
+        try {
+            let res = await AsyncStorage.getItem('patients');
+            // console.log(res);
 
-        console.log({
-            firstName,
-            lastName,
-            birthdate,
-            sexAtBirth,
-            streetAddress,
-            city,
-            country: country?.name,
-        });
+            console.log(
+                '------------------------------------------------------------------------------------------------'
+            );
+            if (res) {
+                let listProfile = JSON.parse(res);
+                console.log(listProfile);
+                listProfile.push({
+                    firstName: firstName,
+                    lastName: lastName,
+                    birthdate: birthdate,
+                    sexAtBirth: sexAtBirth,
+                    streetAddress: streetAddress,
+                    city: city,
+                    country: country,
+                });
+                // listProfile.push(['hekho------------------------------']);
+                await AsyncStorage.setItem(
+                    'patients',
+                    JSON.stringify(listProfile)
+                );
+            }
+            console.log(
+                '---------------------------------------------------------------------------------------------------'
+            );
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -184,3 +189,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 });
+function elseif(arg0: boolean) {
+    throw new Error('Function not implemented.');
+}
