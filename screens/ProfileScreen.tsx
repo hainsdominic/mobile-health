@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { Button, Headline, Subheading } from 'react-native-paper';
+import { Alert, StyleSheet } from 'react-native';
+import { Button, Headline, ProgressBar, Subheading } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Text, View } from '../components/Themed';
@@ -9,6 +9,7 @@ import { useFocusEffect } from '@react-navigation/native';
 export default function ProfileScreen({ navigation }: any) {
     const [name, setName] = useState('');
     const [profession, setProfession] = useState('');
+    const [uploading, setUploading] = useState(false);
 
     useFocusEffect(() => {
         (async () => {
@@ -31,6 +32,14 @@ export default function ProfileScreen({ navigation }: any) {
 
     const deleteAllPatients = async () => {
         await AsyncStorage.removeItem('patients');
+    };
+
+    const uploadPatients = async () => {
+        Alert.alert(
+            'Patient Upload',
+            'Uploaded patients to the server',
+            [{ text: 'OK' }],
+        );
     };
 
     return (
@@ -66,7 +75,7 @@ export default function ProfileScreen({ navigation }: any) {
                 style={styles.edit}
                 icon="upload"
                 mode="contained"
-                onPress={() => console.log('Pressed')}
+                onPress={uploadPatients}
             >
                 upload data
             </Button>
@@ -102,5 +111,9 @@ const styles = StyleSheet.create({
         height: 75,
         alignItems: 'center',
         justifyContent: 'space-between',
+    },
+    progress: {
+        height: 100,
+        width: '50%',
     },
 });
