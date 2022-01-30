@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import 'react-native-get-random-values';
+import DropDown from 'react-native-paper-dropdown';
 import { v4 as uuidv4 } from 'uuid';
 
 import { View } from '../components/Themed';
@@ -13,10 +14,28 @@ export default function NewPatient({ navigation }: any) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthdate, setBirthdate] = useState(new Date());
-    const [sexAtBirth, setSexAtBirth] = useState('');
+    // const [sexAtBirth, setSexAtBirth] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState<Country>();
+
+    const [showDropDown, setShowDropDown] = useState(false);
+    const [gender, setGender] = useState<string>('Gender');
+
+    const genderList = [
+        {
+            label: 'Male',
+            value: 'male',
+        },
+        {
+            label: 'Female',
+            value: 'female',
+        },
+        {
+            label: 'Others',
+            value: 'others',
+        },
+    ];
 
     const onDateChange = (event: Event, date: Date) => {
         const currentDate = date || birthdate;
@@ -46,7 +65,7 @@ export default function NewPatient({ navigation }: any) {
         if (
             firstName === '' ||
             lastName === '' ||
-            sexAtBirth === '' ||
+            gender === 'Gender' ||
             streetAddress === '' ||
             city === '' ||
             country === undefined
@@ -75,7 +94,7 @@ export default function NewPatient({ navigation }: any) {
                         firstName: firstName,
                         lastName: lastName,
                         birthdate: birthdate,
-                        sexAtBirth: sexAtBirth,
+                        sexAtBirth: gender,
                         streetAddress: streetAddress,
                         city: city,
                         country: country?.name,
@@ -95,7 +114,7 @@ export default function NewPatient({ navigation }: any) {
     const resetField = () => {
         setFirstName('');
         setLastName('');
-        setSexAtBirth('');
+        setGender('Gender');
         setStreetAddress('');
         setCity('');
         setCountry(undefined);
@@ -127,13 +146,19 @@ export default function NewPatient({ navigation }: any) {
                     style={styles.dataPickerElement}
                 />
             </View>
-            <TextInput
-                autoComplete={false}
-                placeholder="Sex at birth"
-                value={sexAtBirth}
-                onChangeText={(value) => setSexAtBirth(value)}
-                style={styles.formElement}
-            />
+            <View style={styles.formElement}>
+                <DropDown
+                    label={'Gender'}
+                    mode={'outlined'}
+                    visible={showDropDown}
+                    showDropDown={() => setShowDropDown(true)}
+                    onDismiss={() => setShowDropDown(false)}
+                    value={gender}
+                    setValue={setGender}
+                    list={genderList}
+                />
+            </View>
+
             <TextInput
                 autoComplete={false}
                 placeholder="Street Address"
