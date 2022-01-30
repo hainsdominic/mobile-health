@@ -9,11 +9,32 @@ import { useFocusEffect } from '@react-navigation/native';
 export default function ProfileScreen({ navigation }: any) {
     const [name, setName] = useState('');
     const [profession, setProfession] = useState('');
-    const [uploading, setUploading] = useState(false);
+    const [nbPatients, setNbPatients] = useState(0);
+    const [nbQuestionnaires, setNbQuestionnaires] = useState(0);
 
     useFocusEffect(() => {
         (async () => {
             await retrieveData();
+
+            // Get patients
+            // Get the array of patients
+            const value = await AsyncStorage.getItem('patients');
+
+            if (value) {
+                const data = JSON.parse(value);
+                if (data) {
+                    setNbPatients(data.length);
+                    let totalQuestionnaireCount = 0;
+                    for (let i = 0; i < data.length; i++) {
+                        const patient = data[i];
+                        if (patient.questionnaires) {
+                            totalQuestionnaireCount +=
+                                patient.questionnaires.length;
+                        }
+                    }
+                    setNbQuestionnaires(totalQuestionnaireCount);
+                }
+            }
         })();
     });
 
@@ -62,9 +83,11 @@ export default function ProfileScreen({ navigation }: any) {
             />
             <View style={styles.statsContainer}>
                 <Subheading style={styles.stats} onPress={deleteAllPatients}>
-                    Patients: 69
+                    Patients: {nbPatients}
                 </Subheading>
-                <Subheading style={styles.stats}>Forms filled: 420</Subheading>
+                <Subheading style={styles.stats}>
+                    Forms filled: {nbQuestionnaires}
+                </Subheading>
             </View>
             <View
                 style={styles.separator}
