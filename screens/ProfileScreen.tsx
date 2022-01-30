@@ -28,6 +28,11 @@ export default function ProfileScreen({ navigation }: any) {
             console.error(error);
         }
     };
+
+    const deleteAllPatients = async () => {
+        await AsyncStorage.removeItem("patients");
+    }
+
     return (
         <View style={styles.container}>
             <Headline style={styles.name}>{name}</Headline>
@@ -47,7 +52,7 @@ export default function ProfileScreen({ navigation }: any) {
                 darkColor="rgba(255,255,255,0.1)"
             />
             <View style={styles.statsContainer}>
-                <Subheading style={styles.stats}>Patients: 69</Subheading>
+                <Subheading style={styles.stats} onPress={deleteAllPatients}>Patients: 69</Subheading>
                 <Subheading style={styles.stats}>Forms filled: 420</Subheading>
             </View>
             <View
