@@ -1,8 +1,13 @@
 import { StyleSheet, View, Text, Image } from 'react-native';
 import React from 'react';
 import { Button, Card, Paragraph, Title } from 'react-native-paper';
+import { format } from 'date-fns';
 
-const PatientScreen = ({ navigation }: any) => {
+const PatientScreen = ({ route, navigation }: any) => {
+    const { item } = route.params;
+    const randomHeight = Math.floor(Math.random() * (195 - 145 + 1)) + 145;
+    const randomWeight = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+    const randomBMI = randomWeight / (randomHeight / 100) ** 2;
     return (
         <View style={styles.container}>
             <Image
@@ -13,18 +18,21 @@ const PatientScreen = ({ navigation }: any) => {
             />
             <Card style={styles.card}>
                 <Card.Content>
-                    <Paragraph>First Name: Dominic</Paragraph>
-                    <Paragraph>Last Name: Hains</Paragraph>
-                    <Paragraph>Birthday: {Date()}</Paragraph>
-                    <Paragraph>Gender: Male</Paragraph>
+                    <Paragraph>First Name: {item.firstName}</Paragraph>
+                    <Paragraph>Last Name: {item.lastName}</Paragraph>
+                    <Paragraph>
+                        Birthday:{' '}
+                        {format(new Date(item.birthdate), 'MM/dd/yyyy')}
+                    </Paragraph>
+                    <Paragraph>Sex at birth: {item.sexAtBirth}</Paragraph>
                 </Card.Content>
             </Card>
             <Card style={styles.card}>
                 <Card.Content>
                     <View style={styles.imc}>
-                        <Paragraph>175 lbs</Paragraph>
-                        <Paragraph>75 kg</Paragraph>
-                        <Paragraph>IMC: 25.6</Paragraph>
+                        <Paragraph>{randomHeight} cm</Paragraph>
+                        <Paragraph>{randomWeight} kg</Paragraph>
+                        <Paragraph>IMC: {randomBMI.toPrecision(3)}</Paragraph>
                     </View>
                 </Card.Content>
             </Card>

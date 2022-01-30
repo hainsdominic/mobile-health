@@ -59,7 +59,7 @@ export default function SearchScreen({ navigation }: any) {
         return (
             <TouchableOpacity
                 style={styles.patientButton}
-                onPress={() => console.log(item.id)}
+                onPress={() => navigation.navigate('Patient', { item })}
             >
                 <Text>
                     {item.firstName} {item.lastName}, {date}
