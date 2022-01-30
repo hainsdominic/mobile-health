@@ -19,6 +19,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import EditProfessionalModal from '../screens/EditProfessionalModal';
 import NewPatientScreen from '../screens/NewPatientScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import PatientScreen from '../screens/PatientScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
@@ -56,6 +57,7 @@ function RootNavigator() {
                 component={NotFoundScreen}
                 options={{ title: 'Oops!' }}
             />
+            <Stack.Screen name="Patient" component={PatientScreen} />
             <Stack.Group screenOptions={{ presentation: 'modal' }}>
                 <Stack.Screen
                     name="EditProfessionalModal"
