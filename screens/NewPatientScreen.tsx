@@ -14,13 +14,13 @@ export default function NewPatient({ navigation }: any) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthdate, setBirthdate] = useState(new Date());
-    const [sexAtBirth, setSexAtBirth] = useState('');
+    // const [sexAtBirth, setSexAtBirth] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState<Country>();
 
     const [showDropDown, setShowDropDown] = useState(false);
-    const [gender, setGender] = useState<string>('');
+    const [gender, setGender] = useState<string>('Gender');
 
     const genderList = [
         {
@@ -65,7 +65,7 @@ export default function NewPatient({ navigation }: any) {
         if (
             firstName === '' ||
             lastName === '' ||
-            sexAtBirth === '' ||
+            gender === 'Gender' ||
             streetAddress === '' ||
             city === '' ||
             country === undefined
@@ -94,7 +94,7 @@ export default function NewPatient({ navigation }: any) {
                         firstName: firstName,
                         lastName: lastName,
                         birthdate: birthdate,
-                        sexAtBirth: sexAtBirth,
+                        sexAtBirth: gender,
                         streetAddress: streetAddress,
                         city: city,
                         country: country?.name,
@@ -114,7 +114,7 @@ export default function NewPatient({ navigation }: any) {
     const resetField = () => {
         setFirstName('');
         setLastName('');
-        setSexAtBirth('');
+        setGender('Gender');
         setStreetAddress('');
         setCity('');
         setCountry(undefined);
