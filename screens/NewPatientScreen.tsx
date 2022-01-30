@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { Button, RadioButton, Text, TextInput } from 'react-native-paper';
+import { StyleSheet, Text } from 'react-native';
+import { Button, RadioButton, TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,11 +21,11 @@ export default function NewPatient({ navigation }: any) {
         setBirthdate(currentDate);
     };
 
-    useEffect(() => {
-        (async () => {
-            await retrieveData();
-        })();
-    }, []);
+    // useEffect(() => {
+    //     (async () => {
+    //         await retrieveData();
+    //     })();
+    // }, []);
 
     const retrieveData = async () => {
         try {
@@ -40,24 +40,34 @@ export default function NewPatient({ navigation }: any) {
     };
 
     const storeData = async () => {
-        try {
-            await AsyncStorage.mergeItem(
-                'patients',
-                JSON.stringify([
-                    {
-                        firstName,
-                        lastName,
-                        birthdate,
-                        sexAtBirth,
-                        streetAddress,
-                        city,
-                        country,
-                    },
-                ])
-            );
-        } catch (error) {
-            console.error(error);
-        }
+        // try {
+        //     await AsyncStorage.mergeItem(
+        //         'patients',
+        //         JSON.stringify([
+        //             {
+        //                 firstName,
+        //                 lastName,
+        //                 birthdate,
+        //                 sexAtBirth,
+        //                 streetAddress,
+        //                 city,
+        //                 country,
+        //             },
+        //         ])
+        //     );
+        // } catch (error) {
+        //     console.error(error);
+        // }
+
+        console.log({
+            firstName,
+            lastName,
+            birthdate,
+            sexAtBirth,
+            streetAddress,
+            city,
+            country: country?.name,
+        });
     };
 
     return (
@@ -76,27 +86,23 @@ export default function NewPatient({ navigation }: any) {
                 onChangeText={(lastName) => setLastName(lastName)}
                 style={styles.formElement}
             />
-            <Text>Birthdate</Text>
-            <DateTimePicker
-                value={birthdate}
-                mode="date"
-                onChange={onDateChange}
-                display="default"
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>Birthdate</Text>
+                <DateTimePicker
+                    value={birthdate}
+                    mode="date"
+                    onChange={onDateChange}
+                    display="default"
+                    style={styles.dataPickerElement}
+                />
+            </View>
+            <TextInput
+                autoComplete={false}
+                placeholder="Sex at birth"
+                value={sexAtBirth}
+                onChangeText={(value) => setSexAtBirth(value)}
                 style={styles.formElement}
             />
-            <RadioButton.Group
-                onValueChange={(sexAtBirth: string) =>
-                    setSexAtBirth(sexAtBirth)
-                }
-                value={sexAtBirth}
-            >
-                <View style={styles.formElement}>
-                    <Text>Male</Text>
-                    <RadioButton value="Male" />
-                    <Text>Female</Text>
-                    <RadioButton value="Female" />
-                </View>
-            </RadioButton.Group>
             <TextInput
                 autoComplete={false}
                 placeholder="Street Address"
@@ -113,14 +119,21 @@ export default function NewPatient({ navigation }: any) {
                 onChangeText={(city) => setCity(city)}
                 style={styles.formElement}
             />
-            <Text>Country</Text>
-            <CountryPicker
-                withFlagButton={true}
-                withFlag={true}
-                onSelect={(country: Country) => setCountry(country)}
-            />
-            {country !== null && <Text>{country?.name}</Text>}
-            <Button mode="contained" onPress={async () => await storeData()}>
+            <View style={styles.textContainer}>
+                <View style={styles.countryPicker}>
+                    <CountryPicker
+                        withFlagButton={true}
+                        withFlag={true}
+                        onSelect={(country: Country) => setCountry(country)}
+                    />
+                </View>
+                {country !== null && <Text>{country?.name}</Text>}
+            </View>
+            <Button
+                style={styles.register}
+                mode="contained"
+                onPress={async () => await storeData()}
+            >
                 Register New Patient
             </Button>
         </View>
@@ -132,6 +145,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 0,
     },
     title: {
         fontSize: 20,
@@ -139,6 +153,34 @@ const styles = StyleSheet.create({
     },
     formElement: {
         marginVertical: 10,
-        width: 200,
+        width: '80%',
+    },
+    dataPickerElement: {
+        marginVertical: 10,
+        width: '33%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    text: {
+        fontSize: 16,
+        fontWeight: '600',
+        alignItems: 'center',
+        marginRight: 30,
+    },
+    textContainer: {
+        fontSize: 16,
+        marginVertical: 15,
+        fontWeight: '600',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    countryPicker: {
+        backgroundColor: '#dedede',
+        padding: 10,
+        borderRadius: 10,
+        marginRight: 20,
+    },
+    register: {
+        marginTop: 10,
     },
 });
