@@ -57,7 +57,7 @@ const GSCIScreen = ({ route, navigation }: any) => {
     const [radiate, setRadiate] = useState<string | null>(null);
     return (
         <ScrollView contentContainerStyle={styles.container} bounces={false}>
-            <Headline style={styles.title}>The Brief Pain Inventory</Headline>
+            <Headline style={styles.title}>GSCI Classification</Headline>
             <Text style={styles.subtitle}>
                 Primary location of spinal disorder
             </Text>
